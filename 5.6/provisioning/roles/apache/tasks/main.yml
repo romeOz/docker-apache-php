@@ -1,0 +1,52 @@
+- name: 'Add Apache 2.x repository (Ondřej Surý PPA'
+  apt_repository: repo='ppa:ondrej/php5-5.6' state=present update_cache=yes
+  tags: apache
+
+- name: Install Apache
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - apache2
+    - libapache2-mod-php5
+  tags: apache
+
+- name: "Clear config 'other-vhosts-access-log.conf'"
+  shell: cp /dev/null /etc/apache2/conf-available/other-vhosts-access-log.conf
+  tags: apache
+
+- name: Configure Apache
+  template: src=apache2.conf dest=/etc/apache2/apache2.conf
+  notify:
+    - restart apache
+  tags: apache
+
+- name: Configure Apache Virtual hosts
+  template: src=app.conf dest=/etc/apache2/sites-available/{{ item.name }}.conf
+  with_items: vhosts
+  notify:
+    - restart apache
+  tags: apache
+
+- name: Enable apache modules
+  shell: a2enmod {{ item }}
+  with_items:
+    - rewrite
+    - php5
+  notify:
+    - restart apache
+  tags: apache
+
+- name: Disable default config
+  file: path={{ item }} state=absent
+  with_items:
+    - /etc/apache2/sites-enabled/000-default.conf
+    - /etc/apache2/sites-available/000-default.conf
+  notify:
+    - restart apache
+  tags: apache
+
+- name: Enable config sites
+  file: src=/etc/apache2/sites-available/{{ item.name }}.conf dest=/etc/apache2/sites-enabled/{{ item.name }}.conf state=link
+  with_items: vhosts
+  notify:
+    - restart apache
+  tags: apache

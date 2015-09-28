@@ -1,0 +1,5 @@
+- name: Install common packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - curl
+  tags: common

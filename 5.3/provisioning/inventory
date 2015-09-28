@@ -1,0 +1,1 @@
+docker ansible_connection=local

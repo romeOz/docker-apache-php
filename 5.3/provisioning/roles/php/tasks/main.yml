@@ -1,0 +1,27 @@
+- name: 'PHP + libraries installed'
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - php5-cli
+    - php5-intl
+    - php5-json
+    - php5-curl
+    - php5-mcrypt
+    - php5-gd
+    - php5-xdebug
+    - php-apc
+    - php5-pgsql
+    - php5-mysql
+    - php-pear
+  tags: php
+
+- name: Configure PHP settings
+  template: src=php.ini dest=/etc/php5/apache2/conf.d/custom.ini
+  tags: php
+
+- name: APC enabled CLI
+  shell: echo "apc.enable_cli=1" >> /etc/php5/cli/conf.d/apc.ini
+  tags: php
+
+- name: Chown PHP sessions dir
+  shell: chown {{ username }}:{{ username }} /var/lib/php5 -Rf
+  tags: php

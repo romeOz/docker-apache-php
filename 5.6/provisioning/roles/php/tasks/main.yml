@@ -1,0 +1,36 @@
+- name: 'Add repo PHP 5.6 (Ondřej Surý PPA)'
+  apt_repository: repo='ppa:ondrej/php5-5.6'
+
+- name: 'PHP + libraries installed'
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - php5-cli
+    - php5-intl
+    - php5-json
+    - php5-curl
+    - php5-mcrypt
+    - php5-gd
+    - php5-xdebug
+    - php5-apcu
+    - php5-pgsql
+    - php5-mysql
+    - php-pear
+  tags: php
+
+- name: Enable PHP modules
+  shell: php5enmod {{ item }}
+  with_items:
+    - mcrypt
+  tags: php
+
+- name: Configure PHP settings
+  template: src=php.ini dest=/etc/php5/apache2/conf.d/custom.ini
+  tags: php
+
+- name: APC enabled CLI
+  shell: echo "apc.enable_cli=1" >> /etc/php5/mods-available/apcu.ini
+  tags: php
+
+- name: Chown PHP sessions dir
+  shell: chown {{ username }}:{{ username }} /var/lib/php5 -Rf
+  tags: php
