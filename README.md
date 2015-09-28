@@ -3,11 +3,11 @@ Table of Contents
 
  * [Installation](#installation)
  * [Quick Start](#quick-start)
- * [Persistence](#development-persistence)
+ * [Persistence](#developmentpersistence)
  * [Linked to other container](#linked-to-other-container)
- * [Logging](#logging)
- * [Upgrading](#upgrading)
  * [Adding PHP-extension](#adding-php-extension)
+ * [Upgrading](#upgrading)
+ * [Logging](#logging)
  * [Out of the box](#out-of-the-box)
 
 Installation
