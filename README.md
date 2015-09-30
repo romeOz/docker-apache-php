@@ -5,8 +5,7 @@ Table of Contents
  * [Quick Start](#quick-start)
  * [Persistence](#developmentpersistence)
  * [Linked to other container](#linked-to-other-container)
- * [Adding PHP-extension](#adding-php-extension)
- * [Upgrading](#upgrading)
+ * [Adding PHP-extension](#adding-php-extension) 
  * [Logging](#logging)
  * [Out of the box](#out-of-the-box)
 
@@ -92,29 +91,6 @@ sudo docker exec -it app bash -c 'apt-get update && apt-get install php5-mongo &
 ```
 
 >See installed php-extension: `sudo docker exec -it app php -m`
-
-Upgrading
--------------------
-
-To upgrade to newer releases, simply follow this 3 step upgrade procedure.
-
-- **Step 1**: Stop the currently running image
-
-```bash
-docker stop app
-```
-
-- **Step 2**: Update the docker image.
-
-```bash
-docker pull romeoz/docker-apache-php
-```
-
-- **Step 3**: Start the image
-
-```bash
-docker run --name app -d [OPTIONS] romeoz/docker-apache-php
-```
 
 Logging
 -------------------
