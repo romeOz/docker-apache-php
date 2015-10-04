@@ -12,8 +12,7 @@ ENV LC_ALL ${APP_LOCALE}
 ADD ./app /var/www/app/
 ADD ./provisioning /tmp/provisioning/
 
-# Add image configuration and scripts
-ADD run.sh /run.sh
+COPY entrypoint.sh /sbin/entrypoint.sh
 
 WORKDIR /tmp/provisioning/
 
@@ -34,11 +33,11 @@ RUN	\
 	# Forward request and error logs to docker log collector
 	&& ln -sf /dev/stdout /var/log/apache2/access.log \
 	&& ln -sf /dev/stderr /var/log/apache2/error.log \
-	&& chmod 755 /*.sh
+	&& chmod 755 /sbin/entrypoint.sh
 
 WORKDIR /var/www/app/
 
 EXPOSE 80 433
 
 # By default, simply start apache.
-CMD ["/run.sh"]
+CMD ["/sbin/entrypoint.sh"]

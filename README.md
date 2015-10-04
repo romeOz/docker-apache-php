@@ -99,7 +99,6 @@ All the logs are forwarded to stdout and sterr. You have use the command `docker
 
 ```bash
 docker logs app
-
 ```
 
 ####Split the logs
