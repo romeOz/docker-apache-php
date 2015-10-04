@@ -17,16 +17,17 @@ COPY entrypoint.sh /sbin/entrypoint.sh
 WORKDIR /tmp/provisioning/
 
 RUN	\
+	buildDeps='software-properties-common python-software-properties' \
 	# Install ansible
-	apt-get update \
-	&& apt-get install --no-install-recommends -y software-properties-common python-software-properties sudo \
+	&& apt-get update \
+	&& apt-get install --no-install-recommends -y $buildDeps sudo \
 	&& add-apt-repository -y ppa:ansible/ansible \
 	&& apt-get update \
 	&& apt-get install -y ansible \
 	# Apply playbooks
 	&& ansible-playbook -v docker.yml -i 'docker,' -c local --extra-vars "php_version=${PHP_VERSION}" \
 	# Cleaning
-	&& apt-get purge -y ansible \
+	&& apt-get purge -y --auto-remove ansible $buildDeps \
 	&& apt-get autoremove -y \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /tmp/provisioning* \
