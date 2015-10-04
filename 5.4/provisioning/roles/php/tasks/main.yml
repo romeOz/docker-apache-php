@@ -10,7 +10,6 @@
     - php5-curl
     - php5-mcrypt
     - php5-gd
-    - php5-xdebug
     - php-apc
     - php5-pgsql
     - php5-mysql

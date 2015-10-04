@@ -10,8 +10,6 @@
     - php5-curl
     - php5-mcrypt
     - php5-gd
-    - php5-xdebug
-    - php5-apcu
     - php5-pgsql
     - php5-mysql
     - php-pear
@@ -25,10 +23,6 @@
 
 - name: Configure PHP settings
   template: src=php.ini dest=/etc/php5/apache2/conf.d/custom.ini
-  tags: php
-
-- name: APC enabled CLI
-  shell: echo "apc.enable_cli=1" >> /etc/php5/mods-available/apcu.ini
   tags: php
 
 - name: Chown PHP sessions dir
