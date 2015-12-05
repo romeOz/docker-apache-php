@@ -1,0 +1,10 @@
+#- name: 'Add repo NodeJS 0.10 (Chris Lea PPA)'
+#  apt_repository: repo='ppa:chris-lea/node.js'
+- name: 'Add repo NodeJS 0.12'
+  shell: curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
+
+- name: Install NodeJS
+  apt: pkg=nodejs state=latest
+
+- name: Install Bower
+  npm: name=bower global=yes

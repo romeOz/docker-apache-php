@@ -1,0 +1,22 @@
+- name: 'Add repo PHP 7.0 (Ondřej Surý PPA)'
+  apt_repository: repo='ppa:ondrej/php-7.0'
+
+- name: 'PHP + libraries installed'
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - php7.0-cli
+    - php7.0-intl
+    - php7.0-json
+    - php7.0-curl
+    - php7.0-gd
+    - php7.0-pgsql
+    - php7.0-mysql
+  tags: php
+
+- name: Configure PHP settings
+  template: src=php.ini dest=/etc/php/7.0/apache2/conf.d/custom.ini
+  tags: php
+
+- name: Chown PHP sessions dir
+  shell: chown {{ username }}:{{ username }} /var/lib/php -Rf
+  tags: php

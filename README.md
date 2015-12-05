@@ -19,7 +19,7 @@ Installation
 docker pull romeoz/docker-apache-php
 ```
 
-or other versions (5.6, 5.5, 5.4 or 5.3):
+or other versions (7.0, 5.6, 5.5, 5.4 or 5.3):
 
 ```bash
 docker pull romeoz/docker-apache-php:5.4
@@ -84,13 +84,34 @@ docker run --name app -d -p 8080:80 \
 Adding PHP-extension
 -------------------
 
-Install `php5-mongo`:
+You can use one of two choices to install the required php-extensions:
 
-```bash
-sudo docker exec -it app bash -c 'apt-get update && apt-get install php5-mongo && rm -rf /var/lib/apt/lists/*'
+1. `docker exec -it app bash -c 'apt-get update && apt-get install php5-mongo && rm -rf /var/lib/apt/lists/*'`
+
+2. Create your container on based the current. Сontents Dockerfile:
+
+```
+FROM romeoz/docker-apache-php:5.6
+
+RUN apt-get update \
+    && apt-get install -y php5-mongo \
+    && rm -rf /var/lib/apt/lists/* 
+
+WORKDIR /var/www/app/
+
+EXPOSE 80 433
+
+CMD ["/sbin/entrypoint.sh"]
 ```
 
->See installed php-extension: `sudo docker exec -it app php -m`
+Next step,
+
+```bash
+docker build -t php-5.6 .
+docker run --name app -d -p 8080:80 php-5.6
+```
+
+>See installed php-extension: `docker exec -it app php -m`
 
 Logging
 -------------------
@@ -138,7 +159,7 @@ Out of the box
 -------------------
  * Ubuntu 14.04.3/12.04.5 (LTS)
  * Apache 2.4.x/2.2.x
- * PHP 5.3/5.4/5.5/5.6
+ * PHP 5.3/5.4/5.5/5.6/7.0
  * Composer
 
 >Environment depends on the version of PHP.
