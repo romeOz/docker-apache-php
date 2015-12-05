@@ -2,11 +2,11 @@ FROM ubuntu:trusty
 MAINTAINER romeOz <serggalka@gmail.com>
 
 ENV PHP_VERSION=5.6 \
-	APP_LOCALE="en_US.UTF-8"
-RUN locale-gen ${APP_LOCALE}
-ENV LANG ${APP_LOCALE}
+	OS_LOCALE="en_US.UTF-8"
+RUN locale-gen ${OS_LOCALE}
+ENV LANG ${OS_LOCALE}
 ENV LANGUAGE en_US:en
-ENV LC_ALL ${APP_LOCALE}
+ENV LC_ALL ${OS_LOCALE}
 
 # Add playbooks to the Docker image
 ADD ./app /var/www/app/
