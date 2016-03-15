@@ -38,7 +38,7 @@ RUN	\
 
 WORKDIR /var/www/app/
 
-EXPOSE 80 433
+EXPOSE 80 443
 
 # By default, simply start apache.
 CMD ["/sbin/entrypoint.sh"]
