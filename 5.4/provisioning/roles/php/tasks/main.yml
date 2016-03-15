@@ -31,5 +31,5 @@
   tags: php
 
 - name: Chown PHP sessions dir
-  shell: chown {{ username }}:{{ username }} /var/lib/php5 -Rf
+  file: path=/var/lib/php5 state=directory owner={{ username }} group={{ username }}
   tags: php

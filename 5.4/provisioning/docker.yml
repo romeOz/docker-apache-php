@@ -1,6 +1,5 @@
 ---
 - hosts: docker
-  sudo: true  
   vars:
     root_dir: '/var/www/app'
     username: www-data

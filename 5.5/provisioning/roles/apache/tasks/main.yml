@@ -1,4 +1,4 @@
-- name: 'Add Apache 2.x repository (Ondřej Surý PPA'
+- name: 'Add Apache 2.x repository (Ondřej Surý PPA)'
   apt_repository: repo='ppa:ondrej/apache2' state=present update_cache=yes
   tags: apache
 
@@ -21,7 +21,7 @@
 
 - name: Configure Apache Virtual hosts
   template: src=app.conf dest=/etc/apache2/sites-available/{{ item.name }}.conf
-  with_items: vhosts
+  with_items: '{{vhosts}}'
   notify:
     - restart apache
   tags: apache
@@ -46,7 +46,7 @@
 
 - name: Enable config sites
   file: src=/etc/apache2/sites-available/{{ item.name }}.conf dest=/etc/apache2/sites-enabled/{{ item.name }}.conf state=link
-  with_items: vhosts
+  with_items: '{{vhosts}}'
   notify:
     - restart apache
   tags: apache

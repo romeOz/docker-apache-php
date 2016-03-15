@@ -21,7 +21,7 @@
 
 - name: Configure Apache Virtual hosts
   template: src=app.conf dest=/etc/apache2/sites-available/{{ item.name }}
-  with_items: vhosts
+  with_items: '{{vhosts}}'
   notify:
     - restart apache
   tags: apache
@@ -46,7 +46,7 @@
 
 - name: Enable config sites
   file: src=/etc/apache2/sites-available/{{ item.name }} dest=/etc/apache2/sites-enabled/{{ item.name }} state=link
-  with_items: vhosts
+  with_items: '{{vhosts}}'
   notify:
     - restart apache
   tags: apache

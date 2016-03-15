@@ -7,5 +7,5 @@
 #  tags: demo
 
 - name: Chown project
-  shell: chown {{ username }}:{{ username }} {{ root_dir }} -Rf
+  file: path={{ root_dir }} state=directory owner={{ username }} group={{ username }}
   tags: demo

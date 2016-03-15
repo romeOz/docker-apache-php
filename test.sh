@@ -13,7 +13,7 @@ docker exec -it app php -v | grep -c 'PHP 7.0'
 
 echo
 echo "-- Clear"
-docker rm -f -v $(sudo docker ps -aq); sleep 5
+docker rm -f -v app; sleep 5
 docker rmi -f php-7.0
 
 
@@ -30,7 +30,7 @@ docker exec -it app php -v | grep -c 'PHP 5.6'
 
 echo
 echo "-- Clear"
-docker rm -f -v $(sudo docker ps -aq); sleep 5
+docker rm -f -v app; sleep 5
 docker rmi -f php-5.6
 
 echo
@@ -46,7 +46,7 @@ docker exec -it app php -v | grep -c 'PHP 5.5'
 
 echo
 echo "-- Clear"
-docker rm -f -v $(sudo docker ps -aq); sleep 5
+docker rm -f -v app; sleep 5
 docker rmi -f php-5.5
 
 
@@ -63,7 +63,7 @@ docker exec -it app php -v | grep -c 'PHP 5.4'
 
 echo
 echo "-- Clear"
-docker rm -f -v $(sudo docker ps -aq); sleep 5
+docker rm -f -v app; sleep 5
 docker rmi -f php-5.4
 
 
@@ -80,5 +80,5 @@ docker exec -it app php -v | grep -c 'PHP 5.3'
 
 echo
 echo "-- Clear"
-docker rm -f -v $(sudo docker ps -aq); sleep 5
+docker rm -f -v app; sleep 5
 docker rmi -f php-5.3

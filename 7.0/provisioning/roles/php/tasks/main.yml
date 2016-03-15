@@ -1,5 +1,5 @@
 - name: 'Add repo PHP 7.0 (Ondřej Surý PPA)'
-  apt_repository: repo='ppa:ondrej/php-7.0'
+  apt_repository: repo='ppa:ondrej/php'
 
 - name: 'PHP + libraries installed'
   apt: pkg={{ item }} state=latest
@@ -19,5 +19,5 @@
   tags: php
 
 - name: Chown PHP sessions dir
-  shell: chown {{ username }}:{{ username }} /var/lib/php -Rf
+  file: path=/var/lib/php state=directory owner={{ username }} group={{ username }}
   tags: php
