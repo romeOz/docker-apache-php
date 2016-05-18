@@ -159,7 +159,7 @@ Create the file /etc/logrotate.d/docker-containers with the following text insid
 
 Out of the box
 -------------------
- * Ubuntu 12.04/14.04 LTS
+ * Ubuntu 12.04, 14.04 or 16.04 LTS
  * Apache 2.4.x/2.2.x
  * PHP 5.3, 5.4, 5.5, 5.6 or 7.0
  * Composer
