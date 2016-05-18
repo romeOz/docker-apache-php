@@ -7,8 +7,8 @@ ENV LANG=${OS_LOCALE} \
     LANGUAGE=en_US:en \
     LC_ALL=${OS_LOCALE}
 
-ENV APACHE_CONF=/etc/apache2 \
-    PHP_CONF=/etc/php5 \
+ENV APACHE_CONF_DIR=/etc/apache2 \
+    PHP_CONF_DIR=/etc/php5 \
     PHP_DATA_DIR=/var/lib/php5
 
 COPY ./app /var/www/app/
@@ -20,16 +20,16 @@ RUN	\
 	&& apt-get install --no-install-recommends -y $buildDeps \
 	&& add-apt-repository -y ppa:ondrej/php5-oldstable \
 	&& apt-get update \
-    && apt-get install -y curl apache2 libapache2-mod-php5 php5-cli php5-readline php5-intl php5-json php5-curl php5-mcrypt php5-gd php5-pgsql php5-mysql php-apc \
+    && apt-get install -y curl apache2 libapache2-mod-php5 php5-cli php5-readline php5-intl php5-json php5-curl php5-mcrypt php5-gd php5-pgsql php5-mysql php-apc php-pear \
     # Apache settings
-    && cp /dev/null ${APACHE_CONF}/conf.d/other-vhosts-access-log \
-    && rm ${APACHE_CONF}/sites-enabled/000-default ${APACHE_CONF}/sites-available/default \
+    && cp /dev/null ${APACHE_CONF_DIR}/conf.d/other-vhosts-access-log \
+    && rm ${APACHE_CONF_DIR}/sites-enabled/000-default ${APACHE_CONF_DIR}/sites-available/default \
     && a2enmod rewrite \
     # PHP settings
 	&& php5enmod mcrypt \
-	&& echo "apc.enable_cli=1" >>  ${PHP_CONF}/cli/conf.d/20-apc.ini \
+	&& echo "apc.enable_cli=1" >>  ${PHP_CONF_DIR}/cli/conf.d/20-apc.ini \
 	# Install composer
-	&& curl -sS https://getcomposer.org/installer | php -- --version=1.1.0 --install-dir=/usr/local/bin --filename=composer \
+	&& curl -sS https://getcomposer.org/installer | php -- --version=1.1.1 --install-dir=/usr/local/bin --filename=composer \
 	# Cleaning
 	&& apt-get purge -y --auto-remove $buildDeps \
 	&& apt-get autoremove -y \
@@ -41,9 +41,9 @@ RUN	\
     && chown www-data:www-data ${PHP_DATA_DIR} -Rf
 
 
-COPY ./configs/apache2.conf ${APACHE_CONF}/apache2.conf
-COPY ./configs/app.conf ${APACHE_CONF}/sites-enabled/app.conf
-COPY ./configs/php.ini  ${PHP_CONF}/apache2/conf.d/custom.ini
+COPY ./configs/apache2.conf ${APACHE_CONF_DIR}/apache2.conf
+COPY ./configs/app.conf ${APACHE_CONF_DIR}/sites-enabled/app.conf
+COPY ./configs/php.ini  ${PHP_CONF_DIR}/apache2/conf.d/custom.ini
 
 WORKDIR /var/www/app/
 
