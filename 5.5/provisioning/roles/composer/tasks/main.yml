@@ -1,5 +1,0 @@
-- name: Download Composer
-  shell: creates="composer.phar" chdir="/tmp" curl -s http://getcomposer.org/installer | php
-
-- name: Install Composer globally
-  shell: creates="/usr/local/bin/composer" chdir="/tmp"  mv composer.phar /usr/local/bin/composer

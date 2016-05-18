@@ -12,7 +12,7 @@ Table of Contents
 Installation
 -------------------
 
- * [Install Docker](https://docs.docker.com/installation/) or [askubuntu](http://askubuntu.com/a/473720)
+ * [Install Docker 1.9+](https://docs.docker.com/installation/) or [askubuntu](http://askubuntu.com/a/473720)
  * Pull the latest version of the image.
  
 ```bash
@@ -69,6 +69,8 @@ Linked to other container
 As an example, will link with RDBMS PostgreSQL. 
 
 ```bash
+docker network create pg_net
+
 docker run --name db -d romeoz/docker-postgresql
 ```
 
@@ -76,7 +78,7 @@ Run the application image:
 
 ```bash
 docker run --name app -d -p 8080:80 \
-  --link db:db \
+  --net pg_net \
   -v /host/to/path/app:/var/www/app/ \
   romeoz/docker-apache-php
 ```
@@ -86,15 +88,15 @@ Adding PHP-extension
 
 You can use one of two choices to install the required php-extensions:
 
-1. `docker exec -it app bash -c 'apt-get update && apt-get install php5-mongo && rm -rf /var/lib/apt/lists/*'`
+1. `docker exec -it app bash -c 'apt-get update && apt-get install php-mongo && rm -rf /var/lib/apt/lists/*'`
 
 2. Create your container on based the current. Сontents Dockerfile:
 
 ```
-FROM romeoz/docker-apache-php:5.6
+FROM romeoz/docker-apache-php:5.5
 
 RUN apt-get update \
-    && apt-get install -y php5-mongo \
+    && apt-get install -y php-mongo \
     && rm -rf /var/lib/apt/lists/* 
 
 WORKDIR /var/www/app/
@@ -157,9 +159,9 @@ Create the file /etc/logrotate.d/docker-containers with the following text insid
 
 Out of the box
 -------------------
- * Ubuntu 14.04/12.04 (LTS)
+ * Ubuntu 12.04/14.04 LTS
  * Apache 2.4.x/2.2.x
- * PHP 5.3/5.4/5.5/5.6/7.0
+ * PHP 5.3, 5.4, 5.5, 5.6 or 7.0
  * Composer
 
 >Environment depends on the version of PHP.
