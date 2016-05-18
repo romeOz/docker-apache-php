@@ -36,7 +36,7 @@ docker build -t="$USER/docker-apache-php" .
 Quick Start
 -------------------
 
-Run the application image:
+Run the application container:
 
 ```bash
 docker run --name app -d -p 8080:80 romeoz/docker-apache-php
@@ -74,7 +74,7 @@ docker network create pg_net
 docker run --name db -d romeoz/docker-postgresql
 ```
 
-Run the application image:
+Run the application container:
 
 ```bash
 docker run --name app -d -p 8080:80 \
@@ -169,4 +169,4 @@ Out of the box
 License
 -------------------
 
-Apache + PHP container image is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Apache + PHP docker image is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
