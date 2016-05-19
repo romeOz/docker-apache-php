@@ -21,7 +21,7 @@ RUN	\
 	&& add-apt-repository -y ppa:ondrej/php \
 	&& add-apt-repository -y ppa:ondrej/apache2 \	
 	&& apt-get update \
-    && apt-get install -y curl apache2 libapache2-mod-php5.5 php5.5-cli php5.5-readline php5.5-mbstring php5.5-intl php5.5-xml php5.5-json php5.5-curl php5.5-mcrypt php5.5-gd php5.5-pgsql php5.5-mysql php-pear \
+    && apt-get install -y curl apache2 libapache2-mod-php5.5 php5.5-cli php5.5-readline php5.5-mbstring php5.5-intl php5.5-zip php5.5-xml php5.5-json php5.5-curl php5.5-mcrypt php5.5-gd php5.5-pgsql php5.5-mysql php-pear \
     # Apache settings
     && cp /dev/null ${APACHE_CONF_DIR}/conf-available/other-vhosts-access-log.conf \
     && rm ${APACHE_CONF_DIR}/sites-enabled/000-default.conf ${APACHE_CONF_DIR}/sites-available/000-default.conf \
