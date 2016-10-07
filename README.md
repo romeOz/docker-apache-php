@@ -19,7 +19,7 @@ Installation
 docker pull romeoz/docker-apache-php
 ```
 
-or other versions (7.0, 5.6, 5.5, 5.4 or 5.3):
+or other versions (7.1, 7.0, 5.6, 5.5, 5.4 or 5.3):
 
 ```bash
 docker pull romeoz/docker-apache-php:5.4
@@ -161,8 +161,8 @@ Out of the box
 -------------------
  * Ubuntu 12.04, 14.04 or 16.04 LTS
  * Apache 2.4.x/2.2.x
- * PHP 5.3, 5.4, 5.5, 5.6 or 7.0
- * Composer
+ * PHP 5.3, 5.4, 5.5, 5.6, 7.0 or 7.1
+ * Composer (package manager)
 
 >Environment depends on the version of PHP.
 
