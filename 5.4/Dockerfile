@@ -29,7 +29,7 @@ RUN	\
 	&& php5enmod mcrypt \
 	&& echo "apc.enable_cli=1" >>  ${PHP_CONF_DIR}/cli/conf.d/20-apc.ini \
 	# Install composer
-	&& curl -sS https://getcomposer.org/installer | php -- --version=1.2.0 --install-dir=/usr/local/bin --filename=composer \
+	&& curl -sS https://getcomposer.org/installer | php -- --version=1.2.1 --install-dir=/usr/local/bin --filename=composer \
 	# Cleaning
 	&& apt-get purge -y --auto-remove $buildDeps \
 	&& apt-get autoremove -y \
