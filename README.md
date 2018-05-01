@@ -19,7 +19,7 @@ Installation
 docker pull romeoz/docker-apache-php
 ```
 
-or other versions (7.1, 7.0, 5.6, 5.5, 5.4 or 5.3):
+or other versions (7.2, 7.1, 7.0, 5.6, 5.5, 5.4 or 5.3):
 
 ```bash
 docker pull romeoz/docker-apache-php:5.4
@@ -115,6 +115,8 @@ docker run --name app -d -p 8080:80 php-5.6
 
 >See installed php-extension: `docker exec -it app php -m`
 
+>PHP-extension "Mcrypt" was REMOVED in PHP 7.2. Use [Sodium](http://php.net/manual/en/book.sodium.php) or [OpenSSL](http://php.net/manual/en/book.openssl.php)
+
 Logging
 -------------------
 
@@ -161,7 +163,7 @@ Out of the box
 -------------------
  * Ubuntu 12.04, 14.04 or 16.04 LTS
  * Apache 2.4.x/2.2.x
- * PHP 5.3, 5.4, 5.5, 5.6, 7.0 or 7.1
+ * PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1 or 7.2
  * Composer (package manager)
 
 >Environment depends on the version of PHP.
