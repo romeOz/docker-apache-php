@@ -1,4 +1,8 @@
-- name: Install common packages
+- name: "Add repositories"
+  apt_repository: repo='ppa:rip84/php5' state=present
+  tags: common
+
+- name: "Install common packages"
   apt: pkg={{ item }} state=latest
   with_items:
     - curl
