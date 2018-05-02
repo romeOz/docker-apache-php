@@ -4,8 +4,9 @@ MAINTAINER romeOz <serggalka@gmail.com>
 ENV OS_LOCALE="en_US.UTF-8"
 RUN locale-gen ${OS_LOCALE}
 ENV LANG=${OS_LOCALE} \
-    LANGUAGE=en_US:en \
-    LC_ALL=${OS_LOCALE}
+    LANGUAGE=${OS_LOCALE} \
+    LC_ALL=${OS_LOCALE} \
+    DEBIAN_FRONTEND=noninteractive
 
 ENV APACHE_CONF_DIR=/etc/apache2 \
     PHP_CONF_DIR=/etc/php5 \
@@ -15,9 +16,9 @@ COPY ./app /var/www/app/
 COPY entrypoint.sh /sbin/entrypoint.sh
 
 RUN	\
-	buildDeps='software-properties-common python-software-properties' \
+	BUILD_DEPS='software-properties-common python-software-properties' \
 	&& apt-get update \
-	&& apt-get install --no-install-recommends -y $buildDeps \
+	&& apt-get install --no-install-recommends -y $BUILD_DEPS \
 	&& add-apt-repository -y ppa:ondrej/php5-oldstable \
 	&& apt-get update \
     && apt-get install -y curl apache2 libapache2-mod-php5 php5-cli php5-readline php5-intl php5-json php5-curl php5-mcrypt php5-gd php5-pgsql php5-mysql php-apc php-pear \
@@ -31,7 +32,7 @@ RUN	\
 	# Install composer
 	&& curl -sS https://getcomposer.org/installer | php -- --version=1.6.4 --install-dir=/usr/local/bin --filename=composer \
 	# Cleaning
-	&& apt-get purge -y --auto-remove $buildDeps \
+	&& apt-get purge -y --auto-remove $BUILD_DEPS \
 	&& apt-get autoremove -y \
 	&& rm -rf /var/lib/apt/lists/* \
 	# Forward request and error logs to docker log collector

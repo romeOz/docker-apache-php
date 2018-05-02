@@ -4,8 +4,9 @@ MAINTAINER romeOz <serggalka@gmail.com>
 ENV OS_LOCALE="en_US.UTF-8"
 RUN apt-get update && apt-get install -y locales && locale-gen ${OS_LOCALE}
 ENV LANG=${OS_LOCALE} \
-    LANGUAGE=en_US:en \
-    LC_ALL=${OS_LOCALE}
+    LANGUAGE=${OS_LOCALE} \
+    LC_ALL=${OS_LOCALE} \
+    DEBIAN_FRONTEND=noninteractive
 
 ENV APACHE_CONF_DIR=/etc/apache2 \
     PHP_CONF_DIR=/etc/php/7.0 \
@@ -15,8 +16,9 @@ COPY ./app /var/www/app/
 COPY entrypoint.sh /sbin/entrypoint.sh
 
 RUN	\
-	buildDeps='software-properties-common python-software-properties' \
-	&& apt-get install --no-install-recommends -y $buildDeps \
+	BUILD_DEPS='software-properties-common python-software-properties' \
+    && dpkg-reconfigure locales \
+	&& apt-get install --no-install-recommends -y $BUILD_DEPS \
 	&& add-apt-repository -y ppa:ondrej/php \
 	&& add-apt-repository -y ppa:ondrej/apache2 \
 	&& apt-get update \
@@ -30,7 +32,7 @@ RUN	\
 	# Install composer
 	&& curl -sS https://getcomposer.org/installer | php -- --version=1.6.4 --install-dir=/usr/local/bin --filename=composer \
 	# Cleaning
-	&& apt-get purge -y --auto-remove $buildDeps locales \
+	&& apt-get purge -y --auto-remove $BUILD_DEPS locales \
 	&& apt-get autoremove -y \
 	&& rm -rf /var/lib/apt/lists/* \
 	# Forward request and error logs to docker log collector

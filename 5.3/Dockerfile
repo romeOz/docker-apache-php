@@ -4,9 +4,9 @@ MAINTAINER romeOz <serggalka@gmail.com>
 ENV PHP_VERSION=5.3 \
 	OS_LOCALE="en_US.UTF-8"
 RUN locale-gen ${OS_LOCALE}
-ENV LANG ${OS_LOCALE}
-ENV LANGUAGE en_US:en
-ENV LC_ALL ${OS_LOCALE}
+ENV LANG=${OS_LOCALE} \
+    LANGUAGE=${OS_LOCALE} \
+    LC_ALL=${OS_LOCALE}
 
 # Add playbooks to the Docker image
 ADD ./app /var/www/app/
@@ -17,17 +17,17 @@ COPY entrypoint.sh /sbin/entrypoint.sh
 WORKDIR /tmp/provisioning/
 
 RUN	\
-	buildDeps='software-properties-common python-software-properties' \
+	BUILD_DEPS='software-properties-common python-software-properties' \
 	# Install ansible
 	&& apt-get update \
-	&& apt-get install --no-install-recommends -y $buildDeps sudo \
+	&& apt-get install --no-install-recommends -y $BUILD_DEPS sudo \
 	&& add-apt-repository -y ppa:ansible/ansible \
 	&& apt-get update \
 	&& apt-get install -y ansible \
 	# Apply playbooks
 	&& ansible-playbook -v docker.yml -i 'docker,' -c local --extra-vars "php_version=${PHP_VERSION}" \
 	# Cleaning
-	&& apt-get purge -y --auto-remove ansible $buildDeps \
+	&& apt-get purge -y --auto-remove ansible $BUILD_DEPS \
 	&& apt-get autoremove -y \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /tmp/provisioning* \
