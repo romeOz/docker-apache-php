@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 MAINTAINER romeOz <serggalka@gmail.com>
 
 ENV OS_LOCALE="en_US.UTF-8"
@@ -16,7 +16,7 @@ COPY ./app /var/www/app/
 COPY entrypoint.sh /sbin/entrypoint.sh
 
 RUN	\
-	BUILD_DEPS='software-properties-common python-software-properties' \
+	BUILD_DEPS='software-properties-common' \
     && dpkg-reconfigure locales \
 	&& apt-get install --no-install-recommends -y $BUILD_DEPS \
 	&& add-apt-repository -y ppa:ondrej/php \
