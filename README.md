@@ -19,10 +19,10 @@ Installation
 docker pull romeoz/docker-apache-php
 ```
 
-or other versions (7.2, 7.1, 7.0, 5.6, 5.5, 5.4 or 5.3):
+or other versions (7.3, 7.2, 7.1, 7.0, 5.6, 5.5, 5.4 or 5.3):
 
 ```bash
-docker pull romeoz/docker-apache-php:5.4
+docker pull romeoz/docker-apache-php:7.1
 ```
 
 Alternately you can build the image yourself.
@@ -93,7 +93,7 @@ You can use one of two choices to install the required php-extensions:
 2. Create your container on based the current. Сontents Dockerfile:
 
 ```
-FROM romeoz/docker-apache-php:5.5
+FROM romeoz/docker-apache-php:5.6
 
 RUN apt-get update \
     && apt-get install -y php-mongo \
@@ -161,9 +161,9 @@ Create the file /etc/logrotate.d/docker-containers with the following text insid
 
 Out of the box
 -------------------
- * Ubuntu 12.04, 14.04 or 16.04 LTS
+ * Ubuntu 12.04, 14.04, 16.04 or 18.04 LTS
  * Apache 2.4.x/2.2.x
- * PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1 or 7.2
+ * PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2 or 7.3
  * Composer (package manager)
 
 >Environment depends on the version of PHP.
