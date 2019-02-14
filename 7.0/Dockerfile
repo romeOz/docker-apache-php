@@ -30,7 +30,7 @@ RUN	\
     # PHP settings
 	&& phpenmod mcrypt \
 	# Install composer
-	&& curl -sS https://getcomposer.org/installer | php -- --version=1.6.4 --install-dir=/usr/local/bin --filename=composer \
+	&& curl -sS https://getcomposer.org/installer | php -- --version=1.8.4 --install-dir=/usr/local/bin --filename=composer \
 	# Cleaning
 	&& apt-get purge -y --auto-remove $BUILD_DEPS \
 	&& apt-get autoremove -y \
